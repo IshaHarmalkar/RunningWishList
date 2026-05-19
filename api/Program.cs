@@ -93,6 +93,7 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<ITagRepository, TagRepository>();
+builder.Services.AddScoped<IWishlistItemRepository, WishlistItemRepository>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
