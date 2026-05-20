@@ -6,7 +6,7 @@ This project focuses on clean architecture, efficient database usage, and produc
 
 ---
 
-## 🛠️ Tech Stack
+## 🌻 Tech Stack
 
 ### Backend
 
@@ -23,7 +23,7 @@ This project focuses on clean architecture, efficient database usage, and produc
 
 ---
 
-## ✨ Key Features
+## 🌻 Key Features
 
 - **Full CRUD Operations:** Seamless management of wishlist items.
 - **Tagging System:** Organized via a relational many-to-many relationship.
@@ -46,7 +46,7 @@ This project focuses on clean architecture, efficient database usage, and produc
 
 ---
 
-## 🧠 Backend Design Highlights (Credibility Section)
+## 🌻 Backend Design Highlights (Credibility Section)
 
 | Architecture / Pattern           | Implementation Details & Production Benefits                                                                                                                                                                               |
 | :------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
