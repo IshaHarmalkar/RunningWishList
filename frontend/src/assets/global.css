@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500&display=swap');
+
+:root {
+  --c-bg: #0f0f11;
+  --c-bg-alt: #16161a;
+  --c-border: #2a2a30;
+  --c-accent: #c8a96e;
+  --c-accent-soft: rgba(200, 169, 110, 0.1);
+  --c-text: #e8e6e1;
+  --c-text-muted: #7a7880;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--c-bg);
+  color: var(--c-text);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Quasar overrides */
+.q-field--outlined .q-field__control {
+  background: var(--c-bg) !important;
+}
+.q-field--outlined .q-field__control:before {
+  border-color: var(--c-border) !important;
+}
+.q-field--outlined.q-field--focused .q-field__control:after {
+  border-color: var(--c-accent) !important;
+}
+.q-field__native,
+.q-field__input {
+  color: var(--c-text) !important;
+}
+.q-field__label {
+  color: var(--c-text-muted) !important;
+}
+.q-menu {
+  background: var(--c-bg-alt) !important;
+  border: 1px solid var(--c-border) !important;
+}
+.q-item {
+  color: var(--c-text) !important;
+}
+.q-item:hover {
+  background: var(--c-accent-soft) !important;
+}
+.q-separator {
+  background: var(--c-border) !important;
+}
+.q-notification {
+  font-family: 'DM Sans', sans-serif !important;
+  font-size: 0.82rem !important;
+}

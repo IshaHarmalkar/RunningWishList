@@ -1,42 +1,43 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <q-header elevated>
+    <q-header class="app-header">
       <q-toolbar>
+        <q-btn flat dense round icon="menu" @click="drawer = !drawer" class="menu-btn" />
+        <q-toolbar-title class="app-title">
+          <span class="title-star">✦</span> wishlist
+        </q-toolbar-title>
+        <span class="username-badge">{{ authStore.user?.userName }}</span>
         <q-btn
           flat
           dense
           round
-          icon="menu"
-          aria-label="Menu"
-          @click="toggleLeftDrawer"
+          icon="logout"
+          @click="handleLogout"
+          class="logout-btn"
+          title="Logout"
         />
-
-        <q-toolbar-title>
-          Quasar App
-        </q-toolbar-title>
-
-        <div>Quasar v{{ $q.version }}</div>
       </q-toolbar>
     </q-header>
 
-    <q-drawer
-      v-model="leftDrawerOpen"
-      show-if-above
-      bordered
-    >
-      <q-list>
-        <q-item-label
-          header
-        >
-          Essential Links
-        </q-item-label>
-
-        <EssentialLink
-          v-for="link in linksList"
-          :key="link.title"
-          v-bind="link"
-        />
-      </q-list>
+    <q-drawer v-model="drawer" show-if-above :width="210" class="app-drawer">
+      <div class="drawer-inner">
+        <q-list padding>
+          <q-item
+            v-for="link in navLinks"
+            :key="link.to"
+            :to="link.to"
+            clickable
+            v-ripple
+            active-class="nav-active"
+            class="nav-item"
+          >
+            <q-item-section avatar>
+              <q-icon :name="link.icon" size="18px" />
+            </q-item-section>
+            <q-item-section class="nav-label">{{ link.label }}</q-item-section>
+          </q-item>
+        </q-list>
+      </div>
     </q-drawer>
 
     <q-page-container>
@@ -46,72 +47,79 @@
 </template>
 
 <script>
-import { defineComponent, ref } from 'vue'
-import EssentialLink from 'components/EssentialLink.vue'
+import { useAuthStore } from '../stores/auth'
 
-const linksList = [
-  {
-    title: 'Docs',
-    caption: 'quasar.dev',
-    icon: 'school',
-    link: 'https://quasar.dev'
-  },
-  {
-    title: 'Github',
-    caption: 'github.com/quasarframework',
-    icon: 'code',
-    link: 'https://github.com/quasarframework'
-  },
-  {
-    title: 'Discord Chat Channel',
-    caption: 'chat.quasar.dev',
-    icon: 'chat',
-    link: 'https://chat.quasar.dev'
-  },
-  {
-    title: 'Forum',
-    caption: 'forum.quasar.dev',
-    icon: 'record_voice_over',
-    link: 'https://forum.quasar.dev'
-  },
-  {
-    title: 'Twitter',
-    caption: '@quasarframework',
-    icon: 'rss_feed',
-    link: 'https://twitter.quasar.dev'
-  },
-  {
-    title: 'Facebook',
-    caption: '@QuasarFramework',
-    icon: 'public',
-    link: 'https://facebook.quasar.dev'
-  },
-  {
-    title: 'Quasar Awesome',
-    caption: 'Community Quasar projects',
-    icon: 'favorite',
-    link: 'https://awesome.quasar.dev'
-  }
-]
-
-export default defineComponent({
+export default {
   name: 'MainLayout',
-
-  components: {
-    EssentialLink
+  setup() {
+    return { authStore: useAuthStore() }
   },
-
-  data () {
+  data() {
     return {
-      linksList,
-      leftDrawerOpen: false
+      drawer: false,
+      navLinks: [
+        { to: '/wishlist', icon: 'favorite_border', label: 'Wishlist' },
+        { to: '/tags', icon: 'label_outline', label: 'Tags' },
+      ],
     }
   },
-
   methods: {
-    toggleLeftDrawer () {
-      this.leftDrawerOpen = !this.leftDrawerOpen
-    }
-  }
-})
+    handleLogout() {
+      this.authStore.logout()
+      this.$router.push('/login')
+    },
+  },
+}
 </script>
+
+<style scoped>
+.app-header {
+  background: var(--c-bg-alt);
+  color: var(--c-text);
+  border-bottom: 1px solid var(--c-border);
+  box-shadow: none;
+}
+.app-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.25rem;
+  letter-spacing: 0.06em;
+  color: var(--c-accent);
+}
+.title-star {
+  font-size: 0.9rem;
+  opacity: 0.7;
+}
+.menu-btn,
+.logout-btn {
+  color: var(--c-text-muted);
+}
+.username-badge {
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  color: var(--c-text-muted);
+  margin-right: 0.6rem;
+  opacity: 0.8;
+}
+.app-drawer {
+  background: var(--c-bg-alt);
+  border-right: 1px solid var(--c-border);
+}
+.drawer-inner {
+  padding-top: 0.5rem;
+}
+.nav-item {
+  border-radius: 8px;
+  margin: 2px 8px;
+  min-height: 40px;
+  color: var(--c-text-muted);
+  font-size: 0.85rem;
+}
+.nav-label {
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+}
+.nav-active {
+  color: var(--c-accent) !important;
+  background: var(--c-accent-soft) !important;
+}
+</style>

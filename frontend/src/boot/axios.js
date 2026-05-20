@@ -1,7 +1,7 @@
 import { boot } from 'quasar/wrappers'
 import axios from 'axios'
 
-const api = axios.create({ baseURL: 'http://localhost:5110' })
+const api = axios.create({ baseURL: 'http://localhost:5126' })
 
 export default boot(({ app }) => {
   // Rehydrate token from localStorage on every page load/refresh
